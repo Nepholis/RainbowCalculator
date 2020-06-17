@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>ultra_unicorn_icon.ico</ApplicationIcon>
+    <Win32Resource></Win32Resource>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ultra_unicorn_icon.ico" />
+    <None Remove="trash_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\trash_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ultra_unicorn_icon.ico" />
+    <Resource Include="trash_icon.png" />
+  </ItemGroup>
+
+</Project>
