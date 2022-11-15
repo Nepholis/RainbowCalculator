@@ -107,3 +107,4 @@ C:\Users\jonas\source\repos\Calculator\bin\Debug\netcoreapp3.1\Antlr4.Runtime.St
 C:\Users\jonas\source\repos\Calculator\bin\Debug\netcoreapp3.1\GenericTensor.dll
 C:\Users\jonas\source\repos\Calculator\bin\Debug\netcoreapp3.1\HonkSharp.dll
 C:\Users\jonas\source\repos\Calculator\bin\Debug\netcoreapp3.1\Numbers.dll
+C:\Users\jonas\source\repos\Calculator\obj\Debug\netcoreapp3.1\RechnerV1_Content.g.cs

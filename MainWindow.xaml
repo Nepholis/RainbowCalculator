@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RechnerV1"
         mc:Ignorable="d"
-        Title="Rainbow-Calculator" Height="700" Width="700" ResizeMode="NoResize" Background="#FF1DBEA5" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,0,0">
+        Title="Rainbow-Calculator ~ Nepholis" FontSize="20" Height="700" Width="710" ResizeMode="NoResize" Background="#FF1DBEA5" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,0" FocusManager.FocusedElement="{Binding ElementName=InputBox}">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
@@ -16,9 +16,9 @@
         <Button x:Name="Button_Clear" HorizontalAlignment="Left" Height="60" Margin="0,150,0,0" VerticalAlignment="Top" Width="97" Background="#FFFF0505" FontSize="16" Foreground="White" PreviewMouseDown="Button_Clear_PreviewMouseDown" >
             <Image Height="39" Width="45" Source="/Resources/trash_icon.png"/>
         </Button>
-        <StackPanel FocusManager.FocusedElement="{Binding ElementName=InputBox}">
-            <TextBox x:Name="InputBox" HorizontalAlignment="Left" Height="100" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" FontSize="36" Background="#FFF3F3F3" SelectionBrush="#FFD70000" MaxLines="1" AutomationProperties.HelpText="Enter Your Calculation Here" PreviewTextInput="InputBox_PreviewTextInput" MaxLength="40" KeyDown="InputBox_KeyDown"/>
-        </StackPanel>
+
+        <TextBox x:Name="InputBox" HorizontalAlignment="Left" Height="120" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" FontSize="36" Background="#FFF3F3F3" SelectionBrush="#FFD70000" MaxLines="1" AutomationProperties.HelpText="Enter Your Calculation Here" PreviewTextInput="InputBox_PreviewTextInput" MaxLength="40" KeyDown="InputBox_KeyDown" LostKeyboardFocus="InputBox_Focus"/>
+
         <TextBlock HorizontalAlignment="Left" Height="50" Margin="410,0,0,0" Text="History" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Foreground="White" FontSize="36" TextAlignment="Center">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -28,7 +28,7 @@
             </TextBlock.Background>
         </TextBlock>
         
-        <TextBox x:Name="ErrorLog" HorizontalAlignment="Center" Height="60" IsReadOnly="True" IsTabStop="False" Margin="0,624,0,0" Width="701" Background="#FFC9EDD2" BorderBrush="#FF1DBEA5" FontSize="20" />
+        <TextBox x:Name="ErrorLog" HorizontalAlignment="Center" Height="60" IsReadOnly="True" IsTabStop="False" Margin="0,624,0,0" Width="719" Background="#FFC9EDD2" BorderBrush="#FF1DBEA5" FontSize="20" />
 
         <Button x:Name="Button_DeleteLast" Content="&lt;-" HorizontalAlignment="Left" Height="60" Margin="304,150,0,0" VerticalAlignment="Top" Width="97" Background="#FF164B43" FontSize="16" Foreground="White" PreviewMouseDown="Button_DeleteLast_PreviewMouseDown"/>
         <Button x:Name="Button_Del" Content="Del" HorizontalAlignment="Left" Height="60" Margin="202,150,0,0" VerticalAlignment="Top" Width="97" Background="#FF164B43" FontSize="16" Foreground="White" PreviewMouseDown="Button_Del_PreviewMouseDown"/>
@@ -55,6 +55,6 @@
         <Button x:Name="Button_Div" Content="÷" HorizontalAlignment="Left" Height="60" Margin="304,540,0,0" VerticalAlignment="Top" Width="97" Background="#FF03FFD8" FontSize="24" PreviewMouseDown="Button_Div_PreviewMouseDown"/>
         <Button x:Name="Button_Solve" Content="=" HorizontalAlignment="Left" Height="60" Margin="304,280,0,0" VerticalAlignment="Top" Width="97" Background="#FF03FFD8" FontSize="24" PreviewMouseDown="Button_Solve_PreviewMouseDown"/>
         <Button x:Name="Button_Ans" Content="Ans" HorizontalAlignment="Left" Height="60" Margin="304,215,0,0" VerticalAlignment="Top" Width="97" Background="#FF03FFD8" FontSize="16" PreviewMouseDown="Button_Ans_PreviewMouseDown"/>
-        <ListBox x:Name="HistoryBox" HorizontalAlignment="Left" Height="550" Margin="410,50,0,0" VerticalAlignment="Top" Width="290" Background="#FFA7FFF1"/>
+        <ListBox x:Name="HistoryBox" HorizontalAlignment="Left" Height="550" Margin="410,50,0,0" VerticalAlignment="Top" Width="290" Background="#FFA7FFF1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" ScrollViewer.PanningRatio="50"/>
     </Grid>
 </Window>

@@ -33,7 +33,6 @@ namespace RechnerV1
         {
             InitializeComponent();
         }
-
         //_______________________________________________________________________________________________________________________
         //_______________________________________________Main-Functions__________________________________________________________
         //_______________________________________________________________________________________________________________________
@@ -42,30 +41,17 @@ namespace RechnerV1
         {
             InputBox.IsEnabled = false;
 
-            //? matheval, no easy sqrt or pow
-            //Expression expr = new Expression(InputBox.Text);
-            //String ergebnis = Convert.ToString(expr.Eval<Decimal>());
-
-            //? MS.Analysis, no float/decimal 
-            //decimal res = CSharpScript.EvaluateAsync<decimal>(InputBox.Text).Result;
-            //String ergebnis = res.ToString(new CultureInfo("en-us", false));
-
-            //? AngouriMath, no easy sqrt or pow
-            //Entity expr = InputBox.Text;
-            //var res = (decimal)expr.EvalNumerical();
-            //String ergebnis = res.ToString(new CultureInfo("en-us", false));
-
-            //? mxparser just double, no decimal 
-            
+            //? mxparser uses doubles, no decimals
+            // roundingsettings for the calculation, no decimal available >> e.g. sin(90) fails/isn't 1
             mXparser.disableAlmostIntRounding();
             mXparser.enableUlpRounding();
             mXparser.disableCanonicalRounding();
 
-            //calculate the given expression
+            // calculate the given expression
             Expression e = new Expression(InputBox.Text);
             String ergebnis = e.calculate().ToString(new CultureInfo("en-us", false));
 
-            //validate
+            // check if expression was valid
             if (ergebnis != "NaN")
             {
                 AddButtonToHistory(InputBox.Text + " = " + ergebnis);
@@ -78,7 +64,6 @@ namespace RechnerV1
             }
             InputBox.IsEnabled = true;
         }
-
         private async void ShowErrorMessage(string message)
         {
             ErrorLog.Text = message;
@@ -86,29 +71,11 @@ namespace RechnerV1
             await Task.Delay(seconds*1000);
             ErrorLog.Text = "";
         }
-
-        private void InputBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            //sets which chars are allowed
-            if (!char.IsLetterOrDigit(e.Text.Last())
-                && !(e.Text.Last() == '.')
-                && !(e.Text.Last() == '+')
-                && !(e.Text.Last() == '-')
-                && !(e.Text.Last() == '*')
-                && !(e.Text.Last() == '/')
-                && !(e.Text.Last() == '(')
-                && !(e.Text.Last() == ')')
-                && !(e.Text.Last() == '√')
-                && !(e.Text.Last() == '^')
-                && !(e.Text.Last() == '!')
-                && !(e.Text.Last() == '\r'))
-            {e.Handled = true;}
-        }
-
         private void AddButtonToHistory (string text)
         {
             Button b = new Button();
             b.Content = text;
+            b.FontSize = 14;
             b.Width = 250;
             b.Height = 50;
             b.Tag = histCounter;
@@ -131,22 +98,50 @@ namespace RechnerV1
                 HistoryBox.Items.RemoveAt(i-1);
             }
             InputBox.Text = text;
+            InputBox_Focus(sender, e);
             histCounter = histButtonNr;
         }
 
         //_______________________________________________________________________________________________________________________
-        //_______________________________________________Button-Functions________________________________________________________
+        //_______________________________________________InputBox-Functions________________________________________________________
         //_______________________________________________________________________________________________________________________
-        private void Button_Solve_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.Key == Key.Enter)
             {
                 main();
             }
         }
-        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        private void InputBox_Focus(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            InputBox.Focus();
+            InputBox.SelectionStart = InputBox.Text.Length;
+        }
+
+        private void InputBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //sets which chars are allowed
+            if (!char.IsLetterOrDigit(e.Text.Last())
+                && !(e.Text.Last() == '.')
+                && !(e.Text.Last() == '+')
+                && !(e.Text.Last() == '-')
+                && !(e.Text.Last() == '*')
+                && !(e.Text.Last() == '/')
+                && !(e.Text.Last() == '(')
+                && !(e.Text.Last() == ')')
+                && !(e.Text.Last() == '√')
+                && !(e.Text.Last() == '^')
+                && !(e.Text.Last() == '!')
+                && !(e.Text.Last() == '\r'))
+            { e.Handled = true; }
+        }
+        //_______________________________________________________________________________________________________________________
+        //_______________________________________________Button-Functions________________________________________________________
+        //_______________________________________________________________________________________________________________________
+
+        private void Button_Solve_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 main();
             }
@@ -331,11 +326,23 @@ namespace RechnerV1
         }
         private void Button_Clear_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && HistoryBox.Items.Count > 0)
             {
-                InputBox.Text = "";
-                HistoryBox.Items.Clear();
-                histCounter = 0;
+                MessageBoxResult result = System.Windows.MessageBox.Show("Do you want to delete the History?",
+                                                                     "History deletion?",
+                                                                     System.Windows.MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        InputBox.Text = "";
+                        HistoryBox.Items.Clear();
+                        histCounter = 0;
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
