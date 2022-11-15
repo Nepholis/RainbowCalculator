@@ -1,5 +1,7 @@
-﻿using System;
+﻿using org.mariuszgromada.math.mxparser;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using org.matheval;
+//using Expression = org.matheval.Expression;
+//using Microsoft.CodeAnalysis.CSharp.Scripting;
+//using AngouriMath;
+using Expression = org.mariuszgromada.math.mxparser.Expression;
 
 namespace RechnerV1
 {
@@ -26,80 +33,78 @@ namespace RechnerV1
         {
             InitializeComponent();
         }
+
+        //_______________________________________________________________________________________________________________________
+        //_______________________________________________Main-Functions__________________________________________________________
+        //_______________________________________________________________________________________________________________________
+
         private void main()
         {
             InputBox.IsEnabled = false;
-            SeparatedList SepL = new SeparatedList(InputBox.Text);
-            List<string> sl = SepL.getStrings();
 
-            string ergebnis="";
-            if(sl.Count == 1)
-            {
-                ergebnis = InputBox.Text;
-            }
-            while (sl.Count > 1)
-            {
-                sl = SepL.getStrings();
-                int t = SepL.showNextClac(sl);
+            //? matheval, no easy sqrt or pow
+            //Expression expr = new Expression(InputBox.Text);
+            //String ergebnis = Convert.ToString(expr.Eval<Decimal>());
 
-                decimal a = decimal.Parse(sl[t-1]);
-                decimal b = decimal.Parse(sl[t+1]);
-                string o = sl[t];
-                if (o == "/" && b == 0)
-                {
-                    MessageBox.Show("an Denominator is 0");
-                    break;
-                }
-                Calculate c = new Calculate(a, b, o);
-                
-                ergebnis = c.getResult().ToString();
-                sl[t - 1] = ergebnis;
+            //? MS.Analysis, no float/decimal 
+            //decimal res = CSharpScript.EvaluateAsync<decimal>(InputBox.Text).Result;
+            //String ergebnis = res.ToString(new CultureInfo("en-us", false));
 
-                sl.RemoveAt(t+1);
-                sl.RemoveAt(t);
-            }
-            if(sl.Count != 0)
+            //? AngouriMath, no easy sqrt or pow
+            //Entity expr = InputBox.Text;
+            //var res = (decimal)expr.EvalNumerical();
+            //String ergebnis = res.ToString(new CultureInfo("en-us", false));
+
+            //? mxparser just double, no decimal 
+            
+            mXparser.disableAlmostIntRounding();
+            mXparser.enableUlpRounding();
+            mXparser.disableCanonicalRounding();
+
+            //calculate the given expression
+            Expression e = new Expression(InputBox.Text);
+            String ergebnis = e.calculate().ToString(new CultureInfo("en-us", false));
+
+            //validate
+            if (ergebnis != "NaN")
             {
                 AddButtonToHistory(InputBox.Text + " = " + ergebnis);
+                ans = ergebnis;
+                InputBox.Clear();
             }
-                
-            ans = ergebnis;
-            InputBox.Clear();
+            else
+            {
+                ShowErrorMessage("  '" + InputBox.Text + "' is not a valid Expression");
+            }
             InputBox.IsEnabled = true;
+        }
+
+        private async void ShowErrorMessage(string message)
+        {
+            ErrorLog.Text = message;
+            int seconds = 6;
+            await Task.Delay(seconds*1000);
+            ErrorLog.Text = "";
         }
 
         private void InputBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             //sets which chars are allowed
-            if(!char.IsDigit(e.Text.Last()) 
-                && !(e.Text.Last() == ',')
+            if (!char.IsLetterOrDigit(e.Text.Last())
+                && !(e.Text.Last() == '.')
                 && !(e.Text.Last() == '+')
                 && !(e.Text.Last() == '-')
                 && !(e.Text.Last() == '*')
                 && !(e.Text.Last() == '/')
-                //&& !(e.Text.Last() == '(')
-                //&& !(e.Text.Last() == ')')
-                //&& !(e.Text.Last() == '|')
-                //&& !(e.Text.Last() == '^')
+                && !(e.Text.Last() == '(')
+                && !(e.Text.Last() == ')')
+                && !(e.Text.Last() == '√')
+                && !(e.Text.Last() == '^')
+                && !(e.Text.Last() == '!')
                 && !(e.Text.Last() == '\r'))
             {e.Handled = true;}
         }
 
-        private void InputBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter)
-            {
-                main();
-            }
-        }
-
-        private void Button_Solve_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if(e.LeftButton == MouseButtonState.Pressed)
-            {
-                main();
-            }
-        }
         private void AddButtonToHistory (string text)
         {
             Button b = new Button();
@@ -127,7 +132,25 @@ namespace RechnerV1
             }
             InputBox.Text = text;
             histCounter = histButtonNr;
-        }        
+        }
+
+        //_______________________________________________________________________________________________________________________
+        //_______________________________________________Button-Functions________________________________________________________
+        //_______________________________________________________________________________________________________________________
+        private void Button_Solve_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                main();
+            }
+        }
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                main();
+            }
+        }
         private void Button_0_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -142,7 +165,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "1";
             }
         }
-
         private void Button_2_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -150,7 +172,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "2";
             }
         }
-
         private void Button_3_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -158,7 +179,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "3";
             }
         }
-
         private void Button_4_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -166,7 +186,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "4";
             }
         }
-
         private void Button_5_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -174,7 +193,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "5";
             }
         }
-
         private void Button_6_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -182,7 +200,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "6";
             }
         }
-
         private void Button_7_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -190,7 +207,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "7";
             }
         }
-
         private void Button_8_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -198,23 +214,20 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "8";
             }
         }
-
-        private void Button_9_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Button_9_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 InputBox.Text = InputBox.Text + "9";
             }
         }
-
-        private void Button_Komma_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void Button_Point_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + ",";
+                InputBox.Text = InputBox.Text + ".";
             }
         }
-
         private void Button_Plus_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -222,7 +235,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "+";
             }
         }
-
         private void Button_Minus_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -230,7 +242,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "-";
             }
         }
-
         private void Button_Mul_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -238,7 +249,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "*";
             }
         }
-
         private void Button_Div_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -246,7 +256,55 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + "/";
             }
         }
-
+        private void Button_Root_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "√(";
+            }
+        }
+        private void Button_Pow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "^(";
+            }
+        }
+        private void Button_Pipe_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "|";
+            }
+        }
+        private void Button_Bracket_Left_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "(";
+            }
+        }
+        private void Button_Bracket_Right_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + ")";
+            }
+        }
+        private void Button_Ln_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "ln(";
+            }
+        }
+        private void Button_Log_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                InputBox.Text = InputBox.Text + "log(";
+            }
+        }
         private void Button_DeleteLast_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -257,16 +315,13 @@ namespace RechnerV1
                 }
             }
         }
-
         private void Button_Del_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 InputBox.Clear();
             }
-            
         }
-
         private void Button_Ans_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -274,7 +329,6 @@ namespace RechnerV1
                 InputBox.Text = InputBox.Text + ans;
             }
         }
-
         private void Button_Clear_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
