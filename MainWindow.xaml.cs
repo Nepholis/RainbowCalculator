@@ -1,26 +1,16 @@
-﻿using org.mariuszgromada.math.mxparser;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-//using org.matheval;
-//using Expression = org.matheval.Expression;
-//using Microsoft.CodeAnalysis.CSharp.Scripting;
-//using AngouriMath;
+using org.mariuszgromada.math.mxparser;
 using Expression = org.mariuszgromada.math.mxparser.Expression;
 
-namespace RechnerV1
+namespace RainbowCalculator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -150,163 +140,171 @@ namespace RechnerV1
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "0";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "");
             }
         }
         private void Button_1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "1";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "1");
             }
         }
         private void Button_2_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "2";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "2");
             }
         }
         private void Button_3_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "3";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "3");
             }
         }
         private void Button_4_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "4";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "4");
             }
         }
         private void Button_5_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "5";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "5");
             }
         }
         private void Button_6_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "6";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "6");
             }
         }
         private void Button_7_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "7";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "7");
             }
         }
         private void Button_8_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "8";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "8");
             }
         }
         private void Button_9_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "9";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "9");
             }
         }
         private void Button_Point_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + ".";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, ".");
             }
         }
         private void Button_Plus_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "+";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "+");
             }
         }
         private void Button_Minus_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "-";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "-");
             }
         }
         private void Button_Mul_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "*";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "*");
             }
         }
         private void Button_Div_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "/";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "/");
             }
         }
         private void Button_Root_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "√(";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "√(");
             }
         }
         private void Button_Pow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "^(";
-            }
-        }
-        private void Button_Pipe_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                InputBox.Text = InputBox.Text + "|";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "^(");
             }
         }
         private void Button_Bracket_Left_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "(";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "(");
             }
         }
         private void Button_Bracket_Right_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + ")";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, ")");
             }
         }
         private void Button_Ln_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "ln(";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "ln(");
             }
         }
         private void Button_Log_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + "log(";
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, "log(");
             }
         }
         private void Button_DeleteLast_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            //Deletes the marked Text in the Inputbox, if nothing is marked then the char before the selection will be deleted
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 if (InputBox.Text.Length > 0)
                 {
-                    InputBox.Text = InputBox.Text.Substring(0, (InputBox.Text.Length - 1));
+                    int startIndex = InputBox.SelectionStart;
+                    int count = InputBox.SelectionLength;
+                    int lenght = InputBox.Text.Length;
+
+                    if (startIndex > 0 && count == 0)
+                    { 
+                        count = 1;
+                        startIndex--;
+                    }
+                    if (startIndex == lenght)
+                    {
+                        startIndex--;
+                    }
+
+                    InputBox.Text = InputBox.Text.Remove(startIndex, count);
                 }
             }
         }
@@ -321,7 +319,7 @@ namespace RechnerV1
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                InputBox.Text = InputBox.Text + ans;
+                InputBox.Text = InputBox.Text.Insert(InputBox.SelectionStart, ans);
             }
         }
         private void Button_Clear_PreviewMouseDown(object sender, MouseButtonEventArgs e)

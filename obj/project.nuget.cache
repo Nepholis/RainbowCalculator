@@ -1,41 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Sz90saehWjdd9vhLxbFrDYLcj+XxvRNQnAVMtCALONyxuzdEBC4/jHrso4+m/iwNCkw50MZAEnfO3GIvmObOKQ==",
+  "dgSpecHash": "YIBCz4h4oWiP/9w9v8uSA5N8WPZa0LhfJO+nQ5ivJtPJFFuu0QD82bGZe07EiCUkzK5gZzONqmH4ftCbviIlLQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jonas\\source\\repos\\Calculator\\RechnerV1.csproj",
+  "projectFilePath": "C:\\Users\\jonas\\source\\repos\\Calculator\\RainbowCalculator.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jonas\\.nuget\\packages\\angourimath\\1.3.0\\angourimath.1.3.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\antlr4.runtime.standard\\4.9.2\\antlr4.runtime.standard.4.9.2.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\coreclr-ncalc\\2.2.110\\coreclr-ncalc.2.2.110.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\generictensor\\1.0.4\\generictensor.1.0.4.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\honksharp\\1.0.1\\honksharp.1.0.1.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\mathparser.org-mxparser\\5.1.0\\mathparser.org-mxparser.5.1.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.codeanalysis.common\\4.4.0\\microsoft.codeanalysis.common.4.4.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.codeanalysis.csharp\\4.4.0\\microsoft.codeanalysis.csharp.4.4.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.codeanalysis.csharp.scripting\\4.4.0\\microsoft.codeanalysis.csharp.scripting.4.4.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.codeanalysis.scripting.common\\4.4.0\\microsoft.codeanalysis.scripting.common.4.4.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\ncalc\\1.3.8\\ncalc.1.3.8.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\org.matheval\\1.0.0.2\\org.matheval.1.0.0.2.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\petero.numbers\\1.8.0\\petero.numbers.1.8.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\system.reflection.metadata.5.0.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512",
-    "C:\\Users\\jonas\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+    "C:\\Users\\jonas\\.nuget\\packages\\mathparser.org-mxparser\\5.1.0\\mathparser.org-mxparser.5.1.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Das Paket \"ncalc 1.3.8\" wurde nicht mit dem Projektzielframework \".NETCoreApp,Version=v3.1\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
-      "libraryId": "ncalc",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }
